@@ -27,6 +27,9 @@ from spynnaker.pyNN.models.spike_source import (
     SpikeSourceArrayVertex, SpikeSourcePoissonVertex)
 from .splitter_abstract_pop_vertex_fixed import (
     SplitterAbstractPopulationVertexFixed)
+from .splitter_abstract_pop_gpp import{
+    SplitterAbstractPopulationGPP
+}
 from .splitter_poisson_delegate import SplitterPoissonDelegate
 from .splitter_abstract_pop_vertex_neurons_synapses import (
     SplitterAbstractPopulationVertexNeuronsSynapses)
@@ -72,12 +75,13 @@ def spynnaker_vertex_selector(app_vertex: ApplicationVertex):
     """
     if not app_vertex.has_splitter:
         if isinstance(app_vertex, AbstractPopulationVertex):
-            if app_vertex.combined_core_capable:
-                app_vertex.splitter = SplitterAbstractPopulationVertexFixed()
-            else:
-                app_vertex.splitter = (
-                    SplitterAbstractPopulationVertexNeuronsSynapses(
-                        app_vertex.n_synapse_cores_required))
+            app_vertex.splitter = SplitterAbstractPopulationGPP()
+            # if app_vertex.combined_core_capable:
+            #     app_vertex.splitter = SplitterAbstractPopulationVertexFixed()
+            # else:
+            #     app_vertex.splitter = (
+            #         SplitterAbstractPopulationVertexNeuronsSynapses(
+            #             app_vertex.n_synapse_cores_required))
         elif isinstance(app_vertex, ApplicationSpiNNakerLinkVertex):
             app_vertex.splitter = SplitterExternalDevice()
         elif isinstance(app_vertex, ApplicationFPGAVertex):
