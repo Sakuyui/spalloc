@@ -27,9 +27,10 @@ from spynnaker.pyNN.models.spike_source import (
     SpikeSourceArrayVertex, SpikeSourcePoissonVertex)
 from .splitter_abstract_pop_vertex_fixed import (
     SplitterAbstractPopulationVertexFixed)
-from .splitter_abstract_pop_gpp import{
+
+from .splitter_abstract_pop_gpp import (
     SplitterAbstractPopulationGPP
-}
+)
 from .splitter_poisson_delegate import SplitterPoissonDelegate
 from .splitter_abstract_pop_vertex_neurons_synapses import (
     SplitterAbstractPopulationVertexNeuronsSynapses)

@@ -19,7 +19,7 @@ from pacman.exceptions import PacmanConfigurationException
 from pacman.model.graphs.common import Slice
 from pacman.model.partitioner_splitters import AbstractSplitterCommon
 from pacman.utilities.algorithm_utilities\
-    .partition_algorithm_utilities import get_multidimensional_slices
+    .partition_algorithm_utilities import get_multidimensional_slices, get_multidimensional_single_neuron_slices
 from spynnaker.pyNN.models.neuron import AbstractPopulationVertex
 from .abstract_spynnaker_splitter_delay import AbstractSpynnakerSplitterDelay
 
@@ -86,3 +86,15 @@ class SplitterAbstractPopulationVertex(
             return self.__slices
         self.__slices = get_multidimensional_slices(self.governed_app_vertex)
         return self.__slices
+    
+    @final
+    def _get_all_neuron_slices(self) -> List[Slice]:
+        """
+        Get slices, with each slice contains asingle neuron.
+        """
+        if self.__slices is not None:
+            return self.__slices
+        self.__slices = get_multidimensional_single_neuron_slices(self.governed_app_vertex)
+        return self.__slices
+    
+

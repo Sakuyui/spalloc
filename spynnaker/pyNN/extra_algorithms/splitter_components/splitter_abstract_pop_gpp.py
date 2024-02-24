@@ -56,8 +56,7 @@ class SplitterAbstractPopulationGPP(SplitterAbstractPopulationVertex):
         app_vertex.synapse_recorder.add_region_offset(
             len(app_vertex.neuron_recorder.get_recordable_variables()))
 
-        max_atoms_per_core = min(
-            app_vertex.get_max_atoms_per_core(), app_vertex.n_atoms)
+        max_atoms_per_core = 1 # min(app_vertex.get_max_atoms_per_core(), app_vertex.n_atoms)
 
         ring_buffer_shifts = app_vertex.get_ring_buffer_shifts()
         weight_scales = app_vertex.get_weight_scales(ring_buffer_shifts)
@@ -73,22 +72,28 @@ class SplitterAbstractPopulationGPP(SplitterAbstractPopulationVertex):
             all_syn_block_sz)
         neuron_data = NeuronData(app_vertex)
 
-        for index, vertex_slice in enumerate(self._get_fixed_slices()):
-            chip_counter.add_core(sdram)
+        slices = self._get_all_neuron_slices()
+        deployed_atoms = 0
+        for index, vertex_slice in enumerate(slices):
+            if deployed_atoms % 100 == 0:
+                chip_counter.add_core(sdram)
+            deployed_atoms = (deployed_atoms + 1) % 100
             label = f"{app_vertex.label}{vertex_slice}"
+            
             machine_vertex = self.create_machine_vertex(
                 vertex_slice, sdram, label,
                 structural_sz, ring_buffer_shifts, weight_scales,
                 index, max_atoms_per_core, synaptic_matrices, neuron_data)
             app_vertex.remember_machine_vertex(machine_vertex)
+        print()
 
     @overrides(AbstractSplitterCommon.get_in_coming_slices)
     def get_in_coming_slices(self) -> List[Slice]:
-        return self._get_fixed_slices()
+        return self._get_all_neuron_slices()
 
     @overrides(AbstractSplitterCommon.get_out_going_slices)
     def get_out_going_slices(self) -> List[Slice]:
-        return self._get_fixed_slices()
+        return self._get_all_neuron_slices()
 
     @overrides(AbstractSplitterCommon.get_out_going_vertices)
     def get_out_going_vertices(

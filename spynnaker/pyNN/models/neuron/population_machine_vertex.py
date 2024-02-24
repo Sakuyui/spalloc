@@ -428,5 +428,5 @@ class PopulationMachineVertex(
 
     @overrides(MachineVertex.get_n_keys_for_partition)
     def get_n_keys_for_partition(self, partition_id: str) -> int:
-        n_colours = 2 ** self._pop_vertex.n_colour_bits
+        n_colours = 2 ** self._pop_vertex.n_colour_bits # 2^4
         return self.vertex_slice.n_atoms * n_colours
