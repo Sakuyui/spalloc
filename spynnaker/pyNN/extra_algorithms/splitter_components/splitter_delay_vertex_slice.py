@@ -80,8 +80,7 @@ class SplitterDelayVertexSlice(AbstractSplitterCommon[DelayExtensionVertex]):
 
         # create vertices correctly
         for vertex_slice in slices:
-            vertex = self.create_machine_vertex(
-                source_app_vertex, vertex_slice)
+            vertex = self.create_machine_vertex(source_app_vertex, vertex_slice)
             self.governed_app_vertex.remember_machine_vertex(vertex)
             chip_counter.add_core(vertex.sdram_required)
 

@@ -59,6 +59,7 @@ class SplitterAbstractPopulationVertex(
         self._max_delay = None
         self.__slices = None
 
+    
     @abstractmethod
     def _update_max_delay(self) -> None:
         """
