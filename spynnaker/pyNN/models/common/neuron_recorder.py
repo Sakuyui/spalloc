@@ -962,8 +962,7 @@ class NeuronRecorder(object):
         n_indices = self.__ceil_n_indices(n_atoms)
         n_bytes_for_indices = n_indices * self._N_BYTES_PER_INDEX
         var_bytes = (
-            (self._N_BYTES_PER_RATE + self._N_BYTES_PER_SIZE +
-             self._N_BYTES_PER_ENUM + n_bytes_for_indices) *
+            (self._N_BYTES_PER_RATE + self._N_BYTES_PER_SIZE + self._N_BYTES_PER_ENUM + n_bytes_for_indices) *
             (len(self.__sampling_rates) - len(self.__bitfield_variables)))
         bitfield_bytes = (
             (self._N_BYTES_PER_RATE + self._N_BYTES_PER_SIZE +

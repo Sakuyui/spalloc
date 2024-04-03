@@ -85,7 +85,6 @@ class SplitterAbstractPopulationGPP(SplitterAbstractPopulationVertex):
                 structural_sz, ring_buffer_shifts, weight_scales,
                 index, max_atoms_per_core, synaptic_matrices, neuron_data)
             app_vertex.remember_machine_vertex(machine_vertex)
-        print()
 
     @overrides(AbstractSplitterCommon.get_in_coming_slices)
     def get_in_coming_slices(self) -> List[Slice]:

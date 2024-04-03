@@ -30,7 +30,6 @@ try:
 except ImportError:
     _matplotlib_missing = True
 
-
 def _handle_options(axes, options):
     """
     Handles options that can not be passed to `axes.plot`.

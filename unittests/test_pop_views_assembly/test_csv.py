@@ -20,10 +20,8 @@ from spynnaker.pyNN.utilities import neo_convertor
 from spynnaker.pyNN.utilities.neo_buffer_database import NeoBufferDatabase
 from spynnaker.pyNN.utilities.neo_csv import NeoCsv
 
-
 def trim_spikes(spikes, indexes):
     return [[n, t] for [n, t] in spikes if n in indexes]
-
 
 class TestCSV(BaseTestCase):
 
